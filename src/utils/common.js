@@ -1,5 +1,4 @@
 
-import { _queryAgentList} from '@/api/common/common'
 export const publicData = {
 
   pickerOptions2:{
@@ -69,15 +68,3 @@ export const publicData = {
     }]
   },
 }
-
-
-export function queryAgentList(call){
-    _queryAgentList().then(response => {
-        call(response.data.data) 
-      }).catch(err => {
-        console.log(err)
-      });
-}
-
-
- 
