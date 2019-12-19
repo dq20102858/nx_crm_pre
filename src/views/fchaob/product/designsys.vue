@@ -14,7 +14,7 @@
         <el-table-column label="操作" align="center">
             <template slot-scope="scope">
                 <el-button size="mini" @click="getDetail(scope.row.id)">编辑</el-button>
-                <el-button size="mini" type="danger" @click="">删除</el-button>
+                <el-button size="mini" type="danger"  @click="deleteTmp(scope.row.id)">删除</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -28,7 +28,7 @@
         <el-table-column label="操作" align="center">
             <template slot-scope="scope">
                 <el-button size="mini" @click="getDetail(scope.row.id)">编辑</el-button>
-                <el-button size="mini" type="danger" @click="">删除</el-button>
+                <el-button size="mini" type="danger" @click="deleteTmp(scope.row.id)">删除</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -77,6 +77,7 @@
         templateList:[],
         sysList:[],
         detail:{
+          id:0,
           img:"",
           spaces:[]
         },
@@ -129,6 +130,22 @@
         }
         this.getProductSpaces();
       },
+      deleteTmp(id){
+        let data = {
+          id:id
+        }
+        this.request({
+          url: '/product/deteteTemplate',
+          method: 'post',
+          data
+        }).then(response => {
+          var data = response.data;
+          if(data.status == 1){
+            this.getTemplateLists();
+          }
+        })
+      },
+
       beforeAvatarUpload(file) {
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isLt2M) {
@@ -182,7 +199,8 @@
           }
 
         })
-      }
+      },
+
     },
   }
 </script>
