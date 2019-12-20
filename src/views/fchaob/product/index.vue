@@ -119,4 +119,8 @@ export default {
 </script>
 
 <style>
+  #productLists{
+    padding: 20px;
+    
+  }
 </style>

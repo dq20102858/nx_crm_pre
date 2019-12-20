@@ -4,21 +4,26 @@
       <el-menu-item index="1">设计模板</el-menu-item>
       <el-menu-item index="2">系统方案</el-menu-item>
     </el-menu>
-    <el-table :data="templateList" v-if="activeIndex == 1" >
-        <el-table-column prop="title" label="名称" align="center"></el-table-column>
-        <el-table-column label="图片" align="center">
-            <template slot-scope="scope">
-              <img :src="scope.row.img" style="width: 100px;height: 80px;">
-            </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-                <el-button size="mini" @click="getDetail(scope.row.id)">编辑</el-button>
-                <el-button size="mini" type="danger"  @click="deleteTmp(scope.row.id)">删除</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
-    <el-table :data="sysList" v-else>
+    <div v-if="activeIndex == 1" class="main-wapper">
+      <el-button size="small" type="danger" icon="el-icon-edit" @click="getDetail(0)">新增</el-button>
+      <el-table :data="templateList" >
+          <el-table-column prop="title" label="名称" align="center"></el-table-column>
+          <el-table-column label="图片" align="center">
+              <template slot-scope="scope">
+                <img :src="scope.row.img" style="width: 100px;height: 80px;">
+              </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+              <template slot-scope="scope">
+                  <el-button size="mini" @click="getDetail(scope.row.id)">编辑</el-button>
+                  <el-button size="mini" type="danger"  @click="deleteTmp(scope.row.id)">删除</el-button>
+              </template>
+          </el-table-column>
+      </el-table>
+    </div>
+    <div v-else class="main-wapper">
+      <el-button size="small" type="danger" icon="el-icon-edit" @click="getDetail(0)">新增</el-button>
+      <el-table :data="sysList" >
         <el-table-column prop="title" label="名称" align="center"></el-table-column>
         <el-table-column label="图片" align="center">
             <template slot-scope="scope">
@@ -31,8 +36,8 @@
                 <el-button size="mini" type="danger" @click="deleteTmp(scope.row.id)">删除</el-button>
             </template>
         </el-table-column>
-    </el-table>
-
+      </el-table>
+    </div>
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
       <el-form :model="detail">
         <el-form-item label="名称" :label-width="formLabelWidth">
@@ -79,7 +84,8 @@
         detail:{
           id:0,
           img:"",
-          spaces:[]
+          spaces:[],
+
         },
         title:"设计模板",
         dialogFormVisible:false,
@@ -118,7 +124,7 @@
           params: param
         }).then(response => {
           let data = response.data;
-          if(data.status==1){
+          if(data.msg == "ok"){
             this.detail = data.data
           }
         })
@@ -148,10 +154,27 @@
 
       beforeAvatarUpload(file) {
         const isLt2M = file.size / 1024 / 1024 < 2;
+        var isJPG = false;
+        switch (file.type) {
+            case "image/png":
+                isJPG = true;
+                break;
+            case "image/jpeg":
+                isJPG = true;
+                break;
+            default:
+                isJPG = false;
+                break;
+          }
+          
+          if (!isJPG) {
+              this.$message.error("上传图片只能是 JPG/PNG 格式!");
+          }
+
         if (!isLt2M) {
           this.$message.error("上传图片大小不能超过 2MB!");
         }
-        return isLt2M;
+        return isJPG && isLt2M;
       },
       handleAvatarSuccess(res, file) {
         this.$nextTick(function() {
@@ -176,6 +199,11 @@
       submit(){
 
         let data = this.detail;
+        if(this.activeIndex == "1"){
+          data['type'] = 2;
+        }else{
+          data['type'] = 1;
+        }
         this.request({
           url: '/product/addOrEditTmp',
           method: 'post',
@@ -233,4 +261,7 @@
   	height: 148px;
   	display: block;
   }
+   #template .main-wapper{
+     margin-top: 20px;
+   }
 </style>

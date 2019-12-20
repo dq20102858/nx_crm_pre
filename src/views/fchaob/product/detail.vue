@@ -98,10 +98,27 @@
     methods:{
       beforeAvatarUpload(file) {
         const isLt2M = file.size / 1024 / 1024 < 2;
+        var isJPG = false;
+        switch (file.type) {
+            case "image/png":
+                isJPG = true;
+                break;
+            case "image/jpeg":
+                isJPG = true;
+                break;
+            default:
+                isJPG = false;
+                break;
+          }
+        
+          if (!isJPG) {
+              this.$message.error("上传图片只能是 JPG/PNG 格式!");
+          }
+        
         if (!isLt2M) {
           this.$message.error("上传图片大小不能超过 2MB!");
         }
-        return isLt2M;
+        return isJPG && isLt2M;
       },
       handleAvatarSuccess(res, file) {
         this.$nextTick(function() {
