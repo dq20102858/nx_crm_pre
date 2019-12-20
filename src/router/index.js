@@ -54,6 +54,7 @@ export const asyncRouterMap = {
   '/views/fchaob/product/detail': () => import('@/views/fchaob/product/detail'),
   '/views/fchaob/product/designsys': () => import('@/views/fchaob/product/designsys'),
   '/views/fchaob/product/spaces': () => import('@/views/fchaob/product/spaces'),
+  '/views/fchaob/product/productCate': () => import('@/views/fchaob/product/productCate'),
 
 
 }
