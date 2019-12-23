@@ -61,6 +61,9 @@
           <el-checkbox-group v-model="detail.spaces" size="mini">
             <el-checkbox  border v-for="item in spaces" :label="item.id">{{item.name}}</el-checkbox>
           </el-checkbox-group>
+        </el-form-item>
+         <el-form-item :label-width="formLabelWidth" v-if="detail.spaces.length>0 && detail.id>0">
+            <router-link :to="{path:'setTmpDetail', query: {tmpId:detail.id,spaces:detail.spaces}}">设置模板初始数据</router-link>
           </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -126,6 +129,12 @@
           let data = response.data;
           if(data.msg == "ok"){
             this.detail = data.data
+          }else{
+            this.detail={
+              id:0,
+              img:"",
+              spaces:[],
+            }
           }
         })
         this.dialogFormVisible = true;
@@ -166,7 +175,7 @@
                 isJPG = false;
                 break;
           }
-          
+
           if (!isJPG) {
               this.$message.error("上传图片只能是 JPG/PNG 格式!");
           }
@@ -263,5 +272,10 @@
   }
    #template .main-wapper{
      margin-top: 20px;
+   }
+   #template a {
+    text-decoration: underline !important;
+    color: #076ed8;
+
    }
 </style>
