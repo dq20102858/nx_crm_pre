@@ -13,9 +13,9 @@
              <div class="small-icon" v-show="item.isShow"></div>
              <el-dialog :visible.sync="item.isShow" >
                <ul class="product-space-ul">
-                <li  v-for="(item1, k) in selectSpaces" class="product-space-li"  :class="setSpace.indexOf(item1.id) === -1?'':'active'">
+                <li  v-for="(item1, k) in item.selectSpaces" class="product-space-li"  :class="setSpace.indexOf(item1.id) === -1?'':'active'">
                   <span>{{item1.name}}</span>
-                  <div><el-input-number size="mini" v-model="item1.num" @change="selectSpace(item1)" :min="min"></el-input-number></div>
+                  <div><el-input-number size="mini" v-model="item1.num" @change="selectedSpace(item)" :min="min"></el-input-number></div>
                   <div style="clear: both;"></div>
                 </li>
                 <div class="btn">
@@ -25,7 +25,6 @@
                  <div style="clear: both;"></div>
                </ul>
              </el-dialog>
-
           </li>
       </ul>
       <div id="pagination">
@@ -35,9 +34,10 @@
       <div style="clear: both;"></div>
      <ul id="makesure-ul">
        <li v-for="(item, key) in makesureLists">
-         {{item.product.name}}
+         <span class="top-cate-name">{{item.top_cate_name}}</span>
+         <span class="product-name">{{item.name}} </span>
          <ul class="sub-marksure-ul">
-           <li v-for="(one, k) in item.spaces">
+           <li v-for="(one, k) in item.selectSpaces">
              <span> {{one.name}}</span>
              <span> X{{one.num}}</span>
              <i class="el-icon-circle-close" @click="delectMakeSure(key,k)"></i>
@@ -75,21 +75,14 @@
       }
     },
     created() {
-      this.getProductSpaces();
       this.getFatherCate();
-      this.getProductLists();
+      // this.getProductLists();
+      this.getInitTmpSet();
     },
     methods:{
       openSpace(key){
         let productLists = this.productLists
         let that = this;
-
-        this.setSpace = [];
-        this.selectList =[];
-        this.selectSpaces.forEach(function(item,key){
-          item.num = 0;
-        });
-
         productLists.forEach(function(item,index){
           if(index == key){
             that.$set(item, "isShow", !item['isShow']);
@@ -100,8 +93,8 @@
         this.productLists = productLists;
       },
       delectMakeSure(key,k){
-        if (this.makesureLists[key]['spaces'].length > 1) {
-        	this.makesureLists[key]['spaces'].splice(k, 1);
+        if (this.makesureLists[key]['selectSpaces'].length > 1) {
+        	this.makesureLists[key]['selectSpaces'].splice(k, 1);
         } else {
         	if (this.makesureLists > 1) {
         		this.makesureLists.splice(key, 1);
@@ -111,21 +104,43 @@
         }
       },
       submit(){
-
+          let data = {
+            tmpId:this.tmpId,
+            lists:this.makesureLists
+          }
+          this.request({
+            url: '/product/setTmp',
+            method: 'post',
+            data
+          }).then(response => {
+              var data = response.data
+              if(data.status == 1){
+                this.$message({
+                  type:"success",
+                  message:"设置成功"
+                })
+              }else{
+                this.$message({
+                  type:"success",
+                  message:"设置失败"
+                })
+              }
+          })
       },
       comfirmSelection(product){
         product['isShow'] = false;
         if(this.setSpace.length==0){
           return false;
         }
-        let selectList = JSON.parse(JSON.stringify(this.selectList));
-        let oneData = {
-          product : product,
-          spaces:selectList
-        }
-        this.makesureLists.push(oneData)
-        console.log(this.makesureLists)
-
+        this.setSpace.forEach(function(item,key){
+          let selectSpaces = item.selectSpaces.filter(function (s) {
+                      if(s.num>0){
+                        return s;
+                      }
+                    });
+          item.selectSpaces = selectSpaces;
+        })
+        this.makesureLists = JSON.parse(JSON.stringify(this.setSpace))
       },
       cancel(product){
         product['isShow'] = false;
@@ -155,31 +170,21 @@
           let data = response.data;
           let productLists= data.data.data;
           let that = this;
+
           productLists.forEach(function(item,key){
             that.$set(item, "isShow", false);
           })
           this.productLists = productLists
           this.page = parseInt(data.data.current_page);
           this.total = data.data.total;
+          return productLists
+        }).then(product=>{
+          this.getProductSpaces(product);
+          return product;
         })
       },
-      selectSpace(item){
-        let index = this.setSpace.indexOf(item.id);
 
-        if(index !== -1 && item['num'] == 0){
-          this.setSpace.splice(index, 1);
-          this.selectList.splice(index,1)
-
-        }else if(index !== -1 && item['num'] != 0){
-          this.selectList[index] = item;
-        }else if(index === -1 && item['num'] == 0){
-
-        }else{
-           this.setSpace.push(item.id)
-           this.selectList.push(item)
-        }
-      },
-      getProductSpaces() {
+      getProductSpaces(product){
         this.request({
           url: '/product/getProductSpaces',
           method: 'get',
@@ -196,10 +201,45 @@
                 selectSpaces.push(item)
               }
             })
-            this.selectSpaces = selectSpaces;
+            product.forEach(function(item,index){
+              item.selectSpaces = JSON.parse(JSON.stringify(selectSpaces))
+            })
+            let makesure = this.makesureLists;
+            let proIds = makesure.map(obj => {return obj.id})
+            product.forEach(function(item,key){
+              let index = proIds.indexOf(item.id);
+              if(index!==-1){
+               let spaces =  makesure[index]["selectSpaces"];
+                item['selectSpaces'].forEach(function(pSpace,k){
+                    spaces.forEach(function(mSpace,t){
+                      if(mSpace.id == pSpace.id){
+                        pSpace.num = mSpace.num
+                      }
+                    })
+                })
+              }
+            })
           }
         })
       },
+      selectedSpace(item){
+        let proIds = this.setSpace.map(obj => {return obj.id})
+        let index = proIds.indexOf(item.id);
+        let data = {
+          id:item.id,
+          top_cate_id:item.top_cate_id,
+          top_cate_name:item.top_cate_name,
+          name:item.name,
+          selectSpaces:item.selectSpaces
+        }
+
+        if(index !== -1){
+          this.setSpace[index] = data
+        }else{
+          this.setSpace.push(data)
+        }
+      },
+
       getFatherCate(){
         this.request({
           url: '/product/getFatherCate',
@@ -209,6 +249,26 @@
           if(data.data.length >  1){
             this.faterLists = data.data
           }
+        })
+      },
+      getInitTmpSet(){
+        let data = {
+          tmpId:this.tmpId
+        }
+        this.request({
+          url: '/product/getInitTmpSet',
+          method: 'get',
+          params:data
+        }).then(response => {
+          var data = response.data;
+          if(data.data.length >  1){
+            let makesureLists = data.data
+            this.makesureLists = makesureLists
+            this.setSpace = JSON.parse(JSON.stringify(makesureLists));
+            return makesureLists
+          }
+        }).then(makesure=>{
+          this.getProductLists();
         })
       },
       pageChange(value){
@@ -229,6 +289,7 @@
 }
 #tmp-wapper{
   position: relative;
+  margin-top: 20px;
 }
 ul,li{
   list-style: none;
@@ -321,24 +382,39 @@ ul,li{
   margin-top: 50px;
   float: right;
 }
-#pagination {
+#settmp-detail #pagination {
   position: absolute;
   left: 55%;
   top: 405px;
 }
+#makesure-ul{
+  margin-top: 30px;
+}
 #settmp-detail .el-input-number{
-  width: 80px !important;
+  width: 100px !important;
 }
 #settmp-detail .el-input-number--mini .el-input-number__decrease, .el-input-number--mini .el-input-number__increase{
   width: 20px !important;
 }
 .sub-marksure-ul li{
-  padding: 20px;
+  padding: 15px;
   float: left;
-  width: 160px;
+  width: 135px;
+  font-size: 14px;
 }
 .submit-btn{
   float: right;
   margin-bottom: 30px;
+}
+#tmp-wapper .top-cate-name{
+  font-size: 14px;
+  font-weight: 999;
+  color: #9e6060;
+  display: inline-block;
+  width: 60px;
+}
+#tmp-wapper .product-name{
+    font-size: 14px;
+    display: inline-block;
 }
 </style>
