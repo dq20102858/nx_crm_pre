@@ -1,4 +1,4 @@
-webpackJsonp([8],{
+webpackJsonp([13],{
 
 /***/ "+4G4":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3126,7 +3126,7 @@ var constantRouterMap = [{
   children: [{
     path: '/redirect/:path*',
     component: function component() {
-      return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "v86N"));
+      return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "v86N"));
     }
   }]
 }, {
@@ -3138,7 +3138,7 @@ var constantRouterMap = [{
 }, {
   path: '/authredirect',
   component: function component() {
-    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "+abo"));
+    return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "+abo"));
   },
   hidden: true
 }, {
@@ -3150,7 +3150,7 @@ var constantRouterMap = [{
 }, {
   path: '/401',
   component: function component() {
-    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "eRLo"));
+    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, "eRLo"));
   },
   hidden: true
 }];
@@ -3174,7 +3174,22 @@ var asyncRouterMap = {
     return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, "1MlY"));
   },
   '/views/fchaob/product/index': function viewsFchaobProductIndex() {
-    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, "jyKM"));
+    return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "jyKM"));
+  },
+  '/views/fchaob/product/detail': function viewsFchaobProductDetail() {
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "YMyt"));
+  },
+  '/views/fchaob/product/designsys': function viewsFchaobProductDesignsys() {
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "O3LO"));
+  },
+  '/views/fchaob/product/spaces': function viewsFchaobProductSpaces() {
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "SZrK"));
+  },
+  '/views/fchaob/product/productCate': function viewsFchaobProductProductCate() {
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "kdRU"));
+  },
+  '/views/fchaob/product/setTmpDetail': function viewsFchaobProductSetTmpDetail() {
+    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "24uF"));
   }
 
 };

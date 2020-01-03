@@ -1,97 +1,30 @@
 webpackJsonp([4],{
 
-/***/ "jyKM":
+/***/ "GDEg":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("iLZe");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("rjj0")("02d96911", content, true);
+
+/***/ }),
+
+/***/ "eRLo":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// CONCATENATED MODULE: ./src/utils/common.js
+// EXTERNAL MODULE: ./src/assets/image/401.gif
+var _01 = __webpack_require__("f8eB");
+var _01_default = /*#__PURE__*/__webpack_require__.n(_01);
 
-var publicData = {
-
-  pickerOptions2: {
-    shortcuts: [{
-      text: '今天',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 0);
-        picker.$emit('pick', [start, end]);
-      }
-    }, {
-      text: '最近三天',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 2);
-        picker.$emit('pick', [start, end]);
-      }
-    }, {
-      text: '最近一周',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 6);
-        picker.$emit('pick', [start, end]);
-      }
-    }, {
-      text: '最近一个月',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 29);
-        picker.$emit('pick', [start, end]);
-      }
-    }, {
-      text: '最近三个月',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 89);
-        picker.$emit('pick', [start, end]);
-      }
-    }]
-  },
-  pickerOptions3: {
-    shortcuts: [{
-      text: '本月',
-      onClick: function onClick(picker) {
-        picker.$emit('pick', [new Date(), new Date()]);
-      }
-    }, {
-      text: '今年至今',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date(new Date().getFullYear(), 0);
-        picker.$emit('pick', [start, end]);
-      }
-    }, {
-      text: '最近六个月',
-      onClick: function onClick(picker) {
-        var end = new Date();
-        var start = new Date();
-        start.setMonth(start.getMonth() - 6);
-        picker.$emit('pick', [start, end]);
-      }
-    }]
-  }
-};
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/views/fchaob/product/index.vue
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/views/errorPage/401.vue
 //
 //
 //
@@ -126,59 +59,34 @@ var publicData = {
 //
 
 
-/* harmony default export */ var product = ({
-
-  name: 'productList',
+/* harmony default export */ var errorPage_401 = ({
+  name: "page401",
   data: function data() {
     return {
-      productLists: [],
-      page: 1,
-      total: 1,
-      searchForm: {},
-      pickerOptions2: publicData.pickerOptions2
-
+      errGif: _01_default.a + "?" + +new Date(),
+      ewizardClap: "https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646",
+      dialogVisible: false
     };
-  },
-  created: function created() {
-    this.getProductLists();
   },
 
   methods: {
-    getProductLists: function getProductLists() {
-      var _this = this;
-
-      var data = {
-        page: this.page,
-        status: this.searchForm.status,
-        keyword: this.searchForm.keyword,
-        timeRange: this.searchForm.time_range,
-        cateId: this.searchForm.cateId
-      };
-      this.request({
-        url: '/product/lists',
-        method: 'get',
-        params: data
-      }).then(function (response) {
-        var data = response.data;
-        _this.productLists = data.data.data;
-        _this.page = parseInt(data.data.current_page);
-        _this.total = data.data.total;
-      });
-    },
-    pageChange: function pageChange(value) {
-      this.page = value;
-      this.getProductLists();
+    back: function back() {
+      if (this.$route.query.noGoBack) {
+        this.$router.push({ path: "/collect" });
+      } else {
+        this.$router.go(-1);
+      }
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4fd0bf51","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/fchaob/product/index.vue
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"productLists"}},[_c('el-form',{attrs:{"model":_vm.searchForm,"id":"searchForm"}},[_c('label',{staticClass:"search-label"},[_vm._v("关键字：")]),_vm._v(" "),_c('el-input',{staticClass:"keywords search-input",attrs:{"placeholder":"用户id"},model:{value:(_vm.searchForm.keyword),callback:function ($$v) {_vm.$set(_vm.searchForm, "keyword", $$v)},expression:"searchForm.keyword"}}),_vm._v(" "),_c('label',{staticClass:"search-label"},[_vm._v("状态：")]),_vm._v(" "),_c('el-select',{staticClass:"search-input search-select",attrs:{"clearable":"","placeholder":"请选择"},model:{value:(_vm.searchForm.status),callback:function ($$v) {_vm.$set(_vm.searchForm, "status", $$v)},expression:"searchForm.status"}},[_c('el-option',{attrs:{"label":"待分配","value":"0"}}),_vm._v(" "),_c('el-option',{attrs:{"label":"正常","value":"1"}}),_vm._v(" "),_c('el-option',{attrs:{"label":"已完成","value":"2"}}),_vm._v(" "),_c('el-option',{attrs:{"label":"已取消","value":"-1"}})],1),_vm._v(" "),_c('label',{staticClass:"search-label"},[_vm._v("发布时间：")]),_vm._v(" "),_c('el-date-picker',{attrs:{"type":"daterange","align":"right","unlink-panels":"","range-separator":"至","start-placeholder":"开始日期","end-placeholder":"结束日期","picker-options":_vm.pickerOptions2},model:{value:(_vm.searchForm.time_range),callback:function ($$v) {_vm.$set(_vm.searchForm, "time_range", $$v)},expression:"searchForm.time_range"}}),_vm._v(" "),_c('el-button',{attrs:{"type":"primary"},on:{"click":_vm.getProductLists}},[_vm._v("搜索")])],1),_vm._v(" "),_c('el-table',{ref:"multipleTable",attrs:{"data":_vm.productLists},on:{"selection-change":function($event){}}},[_c('el-table-column',{attrs:{"type":"selection","width":"100"}}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"id","label":"ID","width":"100"}}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"name","label":"产品名称","width":"300"}}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"cate_name","label":"产品类型","width":"200"}}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"price","label":"价格","width":"200"}}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"status_des","label":"状态","width":"200"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [(scope.row.status == 0)?_c('el-tag',[_vm._v("已删除")]):_vm._e(),_vm._v(" "),(scope.row.status == 1)?_c('el-tag',{attrs:{"type":"warning"}},[_vm._v("审核通过")]):_vm._e(),_vm._v(" "),(scope.row.status == 2)?_c('el-tag',{attrs:{"type":"success"}},[_vm._v("审核未通过")]):_vm._e(),_vm._v(" "),(scope.row.status == '-1')?_c('el-tag',{attrs:{"type":"info"}},[_vm._v("待审")]):_vm._e()]}}])}),_vm._v(" "),_c('el-table-column',{attrs:{"prop":"create_time","label":"添加时间","width":"200"}}),_vm._v(" "),_c('el-table-column',{attrs:{"label":"操作"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('el-button',{attrs:{"size":"mini"},on:{"click":function($event){}}},[_vm._v("编辑")]),_vm._v(" "),_c('el-button',{attrs:{"size":"mini","type":"danger"},on:{"click":function($event){}}},[_vm._v("删除")])]}}])})],1),_vm._v(" "),_c('div',{attrs:{"id":"pagination"}},[(_vm.productLists.length !== 0)?_c('el-pagination',{attrs:{"background":"","layout":"prev, pager, next","current-page":this.page,"total":this.total},on:{"current-change":_vm.pageChange}}):_vm._e()],1)],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-8ed0599e","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/errorPage/401.vue
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"errPage-container"},[_c('el-button',{staticClass:"pan-back-btn",attrs:{"icon":"arrow-left"},on:{"click":_vm.back}},[_vm._v("返回")]),_vm._v(" "),_c('el-row',[_c('el-col',{attrs:{"span":12}},[_c('h1',{staticClass:"text-jumbo text-ginormous"},[_vm._v("Oops!")]),_vm._v("\n            gif来源\n            "),_c('a',{attrs:{"href":"https://zh.airbnb.com/","target":"_blank"}},[_vm._v("airbnb")]),_vm._v(" 页面\n            "),_c('h2',[_vm._v("你没有权限去该页面")]),_vm._v(" "),_c('h6',[_vm._v("如有不满请联系你领导")]),_vm._v(" "),_c('ul',{staticClass:"list-unstyled"},[_c('li',[_vm._v("或者你可以去:")]),_vm._v(" "),_c('li',{staticClass:"link-type"},[_c('router-link',{attrs:{"to":"/collect"}},[_vm._v("回首页")])],1),_vm._v(" "),_c('li',{staticClass:"link-type"},[_c('a',{attrs:{"href":"https://www.taobao.com/"}},[_vm._v("随便看看")])]),_vm._v(" "),_c('li',[_c('a',{attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.dialogVisible=true}}},[_vm._v("点我看图")])])])]),_vm._v(" "),_c('el-col',{attrs:{"span":12}},[_c('img',{attrs:{"src":_vm.errGif,"width":"313","height":"428","alt":"Girl has dropped her ice cream."}})])],1),_vm._v(" "),_c('el-dialog',{attrs:{"title":"随便看","visible":_vm.dialogVisible},on:{"update:visible":function($event){_vm.dialogVisible=$event}}},[_c('img',{staticClass:"pan-img",attrs:{"src":_vm.ewizardClap}})])],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ var fchaob_product = (esExports);
-// CONCATENATED MODULE: ./src/views/fchaob/product/index.vue
+/* harmony default export */ var views_errorPage_401 = (esExports);
+// CONCATENATED MODULE: ./src/views/errorPage/401.vue
 function injectStyle (ssrContext) {
-  __webpack_require__("tWWb")
+  __webpack_require__("GDEg")
 }
 var normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -190,24 +98,31 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-8ed0599e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  product,
-  fchaob_product,
+  errorPage_401,
+  views_errorPage_401,
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
 
-/* harmony default export */ var views_fchaob_product = __webpack_exports__["default"] = (Component.exports);
+/* harmony default export */ var src_views_errorPage_401 = __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
 
-/***/ "qJDz":
+/***/ "f8eB":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/401.089007e.gif";
+
+/***/ }),
+
+/***/ "iLZe":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("FZ+f")(false);
@@ -215,24 +130,10 @@ exports = module.exports = __webpack_require__("FZ+f")(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.errPage-container[data-v-8ed0599e] {\n  width: 800px;\n  margin: 100px auto;\n}\n.errPage-container .pan-back-btn[data-v-8ed0599e] {\n    background: #008489;\n    color: #fff;\n}\n.errPage-container .pan-gif[data-v-8ed0599e] {\n    margin: 0 auto;\n    display: block;\n}\n.errPage-container .pan-img[data-v-8ed0599e] {\n    display: block;\n    margin: 0 auto;\n    width: 100%;\n}\n.errPage-container .text-jumbo[data-v-8ed0599e] {\n    font-size: 60px;\n    font-weight: 700;\n    color: #484848;\n}\n.errPage-container .list-unstyled[data-v-8ed0599e] {\n    font-size: 14px;\n}\n.errPage-container .list-unstyled li[data-v-8ed0599e] {\n      padding-bottom: 5px;\n}\n.errPage-container .list-unstyled a[data-v-8ed0599e] {\n      color: #008489;\n      text-decoration: none;\n}\n.errPage-container .list-unstyled a[data-v-8ed0599e]:hover {\n        text-decoration: underline;\n}\n", ""]);
 
 // exports
 
-
-/***/ }),
-
-/***/ "tWWb":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("qJDz");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("rjj0")("3f8dc594", content, true);
 
 /***/ })
 
