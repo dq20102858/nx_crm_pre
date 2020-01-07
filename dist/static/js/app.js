@@ -3177,16 +3177,16 @@ var asyncRouterMap = {
     return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "jyKM"));
   },
   '/views/fchaob/product/detail': function viewsFchaobProductDetail() {
-    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "YMyt"));
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "YMyt"));
   },
   '/views/fchaob/product/designsys': function viewsFchaobProductDesignsys() {
-    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "O3LO"));
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "O3LO"));
   },
   '/views/fchaob/product/spaces': function viewsFchaobProductSpaces() {
-    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "SZrK"));
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "SZrK"));
   },
   '/views/fchaob/product/productCate': function viewsFchaobProductProductCate() {
-    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "kdRU"));
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "kdRU"));
   },
   '/views/fchaob/product/setTmpDetail': function viewsFchaobProductSetTmpDetail() {
     return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "24uF"));
