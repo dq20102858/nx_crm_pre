@@ -57,12 +57,26 @@
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
+        <el-form-item label="详情介绍" :label-width="formLabelWidth" v-if="activeIndex == 2">
+          <el-upload
+            :action="host+'/upload/uploadFile'"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview2"
+            :on-success="handleFileSuccess"
+            :on-remove="handleRemove"
+            :file-list="fileOriginList">
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible1">
+            <img width="100%" :src="dialogImageUrl1" alt="">
+          </el-dialog>
+        </el-form-item>
         <el-form-item label="空间" :label-width="formLabelWidth" v-if="activeIndex == 1">
           <el-checkbox-group v-model="detail.spaces" size="mini">
             <el-checkbox  border v-for="item in spaces" :label="item.id">{{item.name}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-         <el-form-item :label-width="formLabelWidth" v-if="detail.spaces.length>0 && detail.id>0">
+         <el-form-item :label-width="formLabelWidth" v-if="activeIndex == 1 && detail.spaces.length>0 && detail.id>0">
             <router-link :to="{path:'setTmpDetail', query: {tmpId:detail.id,spaces:detail.spaces}}">设置模板初始数据</router-link>
           </el-form-item>
       </el-form>
@@ -88,7 +102,7 @@
           id:0,
           img:"",
           spaces:[],
-
+          file:[]
         },
         title:"设计模板",
         dialogFormVisible:false,
@@ -96,7 +110,10 @@
         host:"http://boss.nething.com/",
         dialogVisible:false,
         dialogImageUrl: '',
-        spaces:[]
+        spaces:[],
+        dialogImageUrl1:"",
+        dialogVisible1:false,
+        fileOriginList:[]
 
       }
     },
@@ -118,6 +135,7 @@
         })
       },
       getDetail(id){
+        this.fileOriginList=[];
         let param = {
           id:id
         };
@@ -129,6 +147,22 @@
           let data = response.data;
           if(data.msg == "ok"){
             this.detail = data.data
+            let originFileLists = [];
+            if(this.detail.file.length>0){
+              this.detail.file.forEach(function(item,key){
+                let one = {
+                  response:{
+                    data:{
+                      url:item
+                    }
+                  },
+                  url:item,
+                  uid:key
+                };
+                originFileLists.push(one);
+              })
+              this.fileOriginList= originFileLists;
+            }
           }else{
             this.detail={
               id:0,
@@ -190,9 +224,25 @@
           this.detail.img= res.data.url;
         })
       },
+      handleFileSuccess(res, file) {
+        this.$nextTick(function() {
+          this.detail.file.push(res.data.url);
+        })
+      },
       handlePictureCardPreview(file){
         this.dialogImageUrl = file.img;
         this.dialogVisible = true;
+      },
+      handlePictureCardPreview2(file){
+        this.dialogImageUrl1 = file.response.data.url;
+        this.dialogVisible1 = true;
+      },
+      handleRemove(file, fileList) {
+        let detailFile = [];
+        fileList.forEach(function(item){
+          detailFile.push(item.response.data.url);
+        });
+        this.detail.file = detailFile;
       },
       getProductSpaces() {
         this.request({
