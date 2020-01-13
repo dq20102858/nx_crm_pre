@@ -1,5 +1,19 @@
 webpackJsonp([0],{
 
+/***/ "/Anr":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("c6Re");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("rjj0")("0293dbb2", content, true);
+
+/***/ }),
+
 /***/ "1MlY":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -463,6 +477,21 @@ var editor_Component = editor_normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -478,18 +507,20 @@ var editor_Component = editor_normalizeComponent(
   },
 
   computed: extends_default()({}, Object(vuex_esm["b" /* mapGetters */])(['roles'])),
-  created: function created() {
-    if (this.roles.includes('客服人员')) {
-      this.currentRole = 'editorDashboard';
-    }
-  }
+  created: function created() {}
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9ebdc8c0","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/fchaob/dashboard/index.vue
-var dashboard_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"dashboard-container"},[_c(_vm.currentRole,{tag:"component"})],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4745902d","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/fchaob/dashboard/index.vue
+var dashboard_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"dashboard-container"},[_c('el-calendar',{scopedSlots:_vm._u([{key:"dateCell",fn:function(ref){
+var date = ref.date;
+var data = ref.data;
+return [_c('div',{staticClass:"calendar-wapper"},[_c('p',{staticClass:"date"},[_vm._v(_vm._s(data.day.split('-').slice(2).join('-')))]),_vm._v(" "),_c('p',{staticClass:"calendar-operate add"},[_vm._v("添加")]),_vm._v(" "),_c('p',{staticClass:"calendar-operate detail"},[_vm._v("详情")]),_vm._v(" "),_c('p',{staticClass:"calendar-show plan-finished"},[_vm._v("计划完成：")]),_vm._v(" "),_c('p',{staticClass:"calendar-show act-finished"},[_vm._v("实际完成：")]),_vm._v(" "),_c('p',{staticClass:"calendar-show remark"},[_vm._v("备注：")])])]}}])})],1)}
 var dashboard_staticRenderFns = []
 var dashboard_esExports = { render: dashboard_render, staticRenderFns: dashboard_staticRenderFns }
 /* harmony default export */ var fchaob_dashboard = (dashboard_esExports);
 // CONCATENATED MODULE: ./src/views/fchaob/dashboard/index.vue
+function dashboard_injectStyle (ssrContext) {
+  __webpack_require__("/Anr")
+}
 var dashboard_normalizeComponent = __webpack_require__("VU/8")
 /* script */
 
@@ -498,7 +529,7 @@ var dashboard_normalizeComponent = __webpack_require__("VU/8")
 /* template functional */
 var dashboard___vue_template_functional__ = false
 /* styles */
-var dashboard___vue_styles__ = null
+var dashboard___vue_styles__ = dashboard_injectStyle
 /* scopeId */
 var dashboard___vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -533,6 +564,21 @@ exports = module.exports = __webpack_require__("FZ+f")(false);
 
 // module
 exports.push([module.i, "\n.emptyGif[data-v-2598c4de] {\n  display: block;\n  width: 45%;\n  margin: 0 auto;\n}\n.dashboard-editor-container[data-v-2598c4de] {\n  background-color: #e3e3e3;\n  min-height: 100vh;\n  padding: 50px 60px 0px;\n}\n.dashboard-editor-container .pan-info-roles[data-v-2598c4de] {\n    font-size: 12px;\n    font-weight: 700;\n    color: #333;\n    display: block;\n}\n.dashboard-editor-container .info-container[data-v-2598c4de] {\n    position: relative;\n    margin-left: 190px;\n    height: 150px;\n    line-height: 200px;\n}\n.dashboard-editor-container .info-container .display_name[data-v-2598c4de] {\n      font-size: 48px;\n      line-height: 48px;\n      color: #212121;\n      position: absolute;\n      top: 25px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "c6Re":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("FZ+f")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.date{\n  text-align: center;\n  /* line-height: 80px; */\n  font-size: 30px;\n  color: #72acce;\n}\n.calendar-wapper{\n  position: relative;\n}\n.calendar-operate{\n  position: absolute;\n  top: -40px;\n  font-size: 10px;\n  cursor: pointer;\n}\n.add{\n  right: 34px;\n  color: red;\n}\n.detail{\n  right: 0px;\n  color: #72acce;\n}\n.calendar-show{\n  position: absolute;\n  font-size: 10px;\n  left: -5px;\n}\n.plan-finished{\n  top: -30px;\n}\n.act-finished{\n  top: 0px;\n}\n.remark{\n  top: 30px;\n}\n.el-calendar-table td{\n  height: 100px !important;\n}\n", ""]);
 
 // exports
 

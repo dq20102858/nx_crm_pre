@@ -1,43 +1,26 @@
 webpackJsonp([8],{
 
-/***/ "EkVj":
+/***/ "CQ+A":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("FZ+f")(false);
-// imports
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-
-// module
-exports.push([module.i, "\n#template{\n  width: 90%;\n  margin: 0 auto;\n}\n.avatar-uploader .el-upload {\n\tborder: 1px dashed #d9d9d9;\n\tborder-radius: 6px;\n\tcursor: pointer;\n\tposition: relative;\n\toverflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n\tborder-color: #409eff;\n}\n.avatar-uploader-icon {\n\tfont-size: 28px;\n\tcolor: #8c939d;\n\twidth: 148px;\n\theight: 148px;\n\tline-height: 148px;\n\ttext-align: center;\n}\n.avatar {\n\twidth: 148px;\n\theight: 148px;\n\tdisplay: block;\n}\n#template .main-wapper{\n   margin-top: 20px;\n}\n#template a {\n  text-decoration: underline !important;\n  color: #076ed8;\n}\n", ""]);
-
-// exports
-
+// load the styles
+var content = __webpack_require__("q8do");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("rjj0")("1fc1417c", content, true);
 
 /***/ }),
 
-/***/ "O3LO":
+/***/ "YMyt":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/views/fchaob/product/designsys.vue
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/views/fchaob/product/detail.vue
 //
 //
 //
@@ -115,116 +98,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ var designsys = ({
-  name: 'designsys',
+/* harmony default export */ var detail = ({
+  name: 'productDetail',
   data: function data() {
     return {
-      activeIndex: "1",
-      templateList: [],
-      sysList: [],
-      detail: {
-        id: 0,
-        img: "",
-        spaces: [],
-        file: []
+      id: this.$route.query.id,
+      product: {
+        imgUrl: "",
+        id: this.$route.query.id
       },
-      title: "设计模板",
-      dialogFormVisible: false,
-      formLabelWidth: "80px",
+      // host: "http://" + location.host,
       host: "http://boss.nething.com/",
       dialogVisible: false,
       dialogImageUrl: '',
-      spaces: [],
-      dialogImageUrl1: "",
-      dialogVisible1: false,
-      fileOriginList: []
-
+      cateList: []
     };
   },
   created: function created() {
-    this.getTemplateLists();
+    this.detail();
+    this.getProductCateLists();
   },
 
   methods: {
-    handleSelect: function handleSelect(key, keyPath) {
-      this.activeIndex = key;
-    },
-    getTemplateLists: function getTemplateLists() {
-      var _this = this;
-
-      this.request({
-        url: '/product/getTmpAndSysLists',
-        method: 'get'
-      }).then(function (response) {
-        var data = response.data.data;
-        _this.templateList = data.templates;
-        _this.sysList = data.sysDesign;
-      });
-    },
-    getDetail: function getDetail(id) {
-      var _this2 = this;
-
-      this.fileOriginList = [];
-      var param = {
-        id: id
-      };
-      this.request({
-        url: '/product/getTemplateDetail',
-        method: 'get',
-        params: param
-      }).then(function (response) {
-        var data = response.data;
-        if (data.msg == "ok") {
-          _this2.detail = data.data;
-          var originFileLists = [];
-          if (_this2.detail.file.length > 0) {
-            _this2.detail.file.forEach(function (item, key) {
-              var one = {
-                response: {
-                  data: {
-                    url: item
-                  }
-                },
-                url: item,
-                uid: key
-              };
-              originFileLists.push(one);
-            });
-            _this2.fileOriginList = originFileLists;
-          }
-        } else {
-          _this2.detail = {
-            id: 0,
-            img: "",
-            spaces: []
-          };
-        }
-      });
-      this.dialogFormVisible = true;
-      if (this.activeIndex == 1) {
-        this.title = "设计模板";
-      } else {
-        this.title = "系统方案";
-      }
-      this.getProductSpaces();
-    },
-    deleteTmp: function deleteTmp(id) {
-      var _this3 = this;
-
-      var data = {
-        id: id
-      };
-      this.request({
-        url: '/product/deteteTemplate',
-        method: 'post',
-        data: data
-      }).then(function (response) {
-        var data = response.data;
-        if (data.status == 1) {
-          _this3.getTemplateLists();
-        }
-      });
-    },
     beforeAvatarUpload: function beforeAvatarUpload(file) {
       var isLt2M = file.size / 1024 / 1024 < 2;
       var isJPG = false;
@@ -251,84 +146,92 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     handleAvatarSuccess: function handleAvatarSuccess(res, file) {
       this.$nextTick(function () {
-        this.detail.img = res.data.url;
-      });
-    },
-    handleFileSuccess: function handleFileSuccess(res, file) {
-      this.$nextTick(function () {
-        this.detail.file.push(res.data.url);
+        this.product.imgUrl = res.data.url;
       });
     },
     handlePictureCardPreview: function handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.img;
+      this.dialogImageUrl = file.imgUrl;
       this.dialogVisible = true;
     },
-    handlePictureCardPreview2: function handlePictureCardPreview2(file) {
-      this.dialogImageUrl1 = file.response.data.url;
-      this.dialogVisible1 = true;
-    },
-    handleRemove: function handleRemove(file, fileList) {
-      var detailFile = [];
-      fileList.forEach(function (item) {
-        detailFile.push(item.response.data.url);
-      });
-      this.detail.file = detailFile;
-    },
-    getProductSpaces: function getProductSpaces() {
-      var _this4 = this;
+    detail: function detail() {
+      var _this = this;
 
-      this.request({
-        url: '/product/getProductSpaces',
-        method: 'get'
-      }).then(function (response) {
-        var data = response.data.data;
-        if (data.length > 1) {
-          _this4.spaces = data;
-        }
-      });
-    },
-    submit: function submit() {
-      var _this5 = this;
-
-      var data = this.detail;
-      if (this.activeIndex == "1") {
-        data['type'] = 2;
-      } else {
-        data['type'] = 1;
+      if (this.id == 0) {
+        return false;
       }
+      var data = {
+        id: this.id
+      };
       this.request({
-        url: '/product/addOrEditTmp',
-        method: 'post',
-        data: data
+        url: '/product/detail',
+        method: 'get',
+        params: data
       }).then(function (response) {
         var data = response.data;
         if (data.status == 1) {
-          _this5.dialogFormVisible = false;
-          _this5.getTemplateLists();
+          _this.product = data.data;
+        }
+      });
+    },
+    getProductCateLists: function getProductCateLists() {
+      var _this2 = this;
+
+      this.request({
+        url: '/product/getProductCateLists',
+        method: 'get'
+      }).then(function (response) {
+        var data = response.data;
+        _this2.cateList = data.data;
+      });
+    },
+    submitForm: function submitForm() {
+      var _this3 = this;
+
+      var data = this.product;
+      this.request({
+        url: '/product/addOrUpdateProd',
+        method: 'post',
+        data: data
+      }).then(function (response) {
+        var result = response.data;
+        var msg = "";
+        if (result.status == 1) {
+          if (_this3.id == 0 || _this3.id == "" || typeof _this3.id == "undefined") {
+            msg = "新增成功";
+          } else {
+            msg = "更新成功";
+          }
+          _this3.$message({
+            "type": "success",
+            "message": msg
+          });
         } else {
-          var msg = "";
-          if (_this5.detail.id == 0 || _this5.detail.id == "" || typeof _this5.detail.id == "undefined") {
+          if (_this3.id == 0 || _this3.id == "" || typeof _this3.id == "undefined") {
             msg = "新增失败";
           } else {
             msg = "更新失败";
           }
-          _this5.$message({
-            "type": "success",
+          _this3.$message({
+            "type": "error",
             "message": msg
           });
         }
       });
+    },
+    resetForm: function resetForm() {
+      this.$refs["product_form"].resetFields();
+      // this.product = {};
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-43d7ed7b","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/fchaob/product/designsys.vue
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"template"}},[_c('el-menu',{staticClass:"el-menu-demo",attrs:{"default-active":_vm.activeIndex,"mode":"horizontal"},on:{"select":_vm.handleSelect}},[_c('el-menu-item',{attrs:{"index":"1"}},[_vm._v("设计模板")]),_vm._v(" "),_c('el-menu-item',{attrs:{"index":"2"}},[_vm._v("系统方案")])],1),_vm._v(" "),(_vm.activeIndex == 1)?_c('div',{staticClass:"main-wapper"},[_c('el-button',{attrs:{"size":"small","type":"danger","icon":"el-icon-edit"},on:{"click":function($event){_vm.getDetail(0)}}},[_vm._v("新增")]),_vm._v(" "),_c('el-table',{attrs:{"data":_vm.templateList}},[_c('el-table-column',{attrs:{"prop":"title","label":"名称","align":"center"}}),_vm._v(" "),_c('el-table-column',{attrs:{"label":"图片","align":"center"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('img',{staticStyle:{"width":"100px","height":"80px"},attrs:{"src":scope.row.img}})]}}])}),_vm._v(" "),_c('el-table-column',{attrs:{"label":"操作","align":"center"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('el-button',{attrs:{"size":"mini"},on:{"click":function($event){_vm.getDetail(scope.row.id)}}},[_vm._v("编辑")]),_vm._v(" "),_c('el-button',{attrs:{"size":"mini","type":"danger"},on:{"click":function($event){_vm.deleteTmp(scope.row.id)}}},[_vm._v("删除")])]}}])})],1)],1):_c('div',{staticClass:"main-wapper"},[_c('el-button',{attrs:{"size":"small","type":"danger","icon":"el-icon-edit"},on:{"click":function($event){_vm.getDetail(0)}}},[_vm._v("新增")]),_vm._v(" "),_c('el-table',{attrs:{"data":_vm.sysList}},[_c('el-table-column',{attrs:{"prop":"title","label":"名称","align":"center"}}),_vm._v(" "),_c('el-table-column',{attrs:{"label":"图片","align":"center"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('img',{staticStyle:{"width":"100px","height":"80px"},attrs:{"src":scope.row.img}})]}}])}),_vm._v(" "),_c('el-table-column',{attrs:{"label":"操作","align":"center"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('el-button',{attrs:{"size":"mini"},on:{"click":function($event){_vm.getDetail(scope.row.id)}}},[_vm._v("编辑")]),_vm._v(" "),_c('el-button',{attrs:{"size":"mini","type":"danger"},on:{"click":function($event){_vm.deleteTmp(scope.row.id)}}},[_vm._v("删除")])]}}])})],1)],1),_vm._v(" "),_c('el-dialog',{attrs:{"title":_vm.title,"visible":_vm.dialogFormVisible},on:{"update:visible":function($event){_vm.dialogFormVisible=$event}}},[_c('el-form',{attrs:{"model":_vm.detail}},[_c('el-form-item',{attrs:{"label":"名称","label-width":_vm.formLabelWidth}},[_c('el-input',{attrs:{"autocomplete":"off"},model:{value:(_vm.detail.title),callback:function ($$v) {_vm.$set(_vm.detail, "title", $$v)},expression:"detail.title"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"图片","label-width":_vm.formLabelWidth}},[_c('el-upload',{staticClass:"avatar-uploader",attrs:{"action":_vm.host+'/upload/uploadFile',"on-success":_vm.handleAvatarSuccess,"before-upload":_vm.beforeAvatarUpload,"show-file-list":false}},[(_vm.detail.img)?_c('img',{staticClass:"avatar",attrs:{"src":_vm.detail.img}}):_vm._e(),_vm._v(" "),(_vm.detail.img)?_c('span',{staticStyle:{"position":"absolute","top":"5%","right":"10%","font-size":"20px"},on:{"click":function($event){$event.stopPropagation();_vm.handlePictureCardPreview(_vm.detail)}}},[_c('i',{staticClass:"el-icon-zoom-in"})]):_vm._e(),_vm._v(" "),(!_vm.detail.img)?_c('i',{staticClass:"el-icon-plus avatar-uploader-icon"}):_vm._e()]),_vm._v(" "),_c('el-dialog',{attrs:{"visible":_vm.dialogVisible},on:{"update:visible":function($event){_vm.dialogVisible=$event}}},[_c('img',{attrs:{"width":"100%","src":_vm.dialogImageUrl,"alt":""}})])],1),_vm._v(" "),(_vm.activeIndex == 2)?_c('el-form-item',{attrs:{"label":"详情介绍","label-width":_vm.formLabelWidth}},[_c('el-upload',{attrs:{"action":_vm.host+'/upload/uploadFile',"list-type":"picture-card","on-preview":_vm.handlePictureCardPreview2,"on-success":_vm.handleFileSuccess,"on-remove":_vm.handleRemove,"file-list":_vm.fileOriginList}},[_c('i',{staticClass:"el-icon-plus"})]),_vm._v(" "),_c('el-dialog',{attrs:{"visible":_vm.dialogVisible1},on:{"update:visible":function($event){_vm.dialogVisible1=$event}}},[_c('img',{attrs:{"width":"100%","src":_vm.dialogImageUrl1,"alt":""}})])],1):_vm._e(),_vm._v(" "),(_vm.activeIndex == 1)?_c('el-form-item',{attrs:{"label":"空间","label-width":_vm.formLabelWidth}},[_c('el-checkbox-group',{attrs:{"size":"mini"},model:{value:(_vm.detail.spaces),callback:function ($$v) {_vm.$set(_vm.detail, "spaces", $$v)},expression:"detail.spaces"}},_vm._l((_vm.spaces),function(item){return _c('el-checkbox',{attrs:{"border":"","label":item.id}},[_vm._v(_vm._s(item.name))])}))],1):_vm._e(),_vm._v(" "),(_vm.activeIndex == 1 && _vm.detail.spaces.length>0 && _vm.detail.id>0)?_c('el-form-item',{attrs:{"label-width":_vm.formLabelWidth}},[_c('router-link',{attrs:{"to":{path:'setTmpDetail', query: {tmpId:_vm.detail.id,spaces:_vm.detail.spaces}}}},[_vm._v("设置模板初始数据")])],1):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"dialog-footer",attrs:{"slot":"footer"},slot:"footer"},[_c('el-button',{on:{"click":function($event){_vm.dialogFormVisible = false}}},[_vm._v("取 消")]),_vm._v(" "),_c('el-button',{attrs:{"type":"primary"},on:{"click":_vm.submit}},[_vm._v("确 定")])],1)],1)],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-59b39a46","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/views/fchaob/product/detail.vue
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"product-detail"}},[_c('el-form',{ref:"product_form",attrs:{"model":_vm.product,"label-width":"80px"}},[_c('el-form-item',{attrs:{"label":"产品名"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.name),callback:function ($$v) {_vm.$set(_vm.product, "name", $$v)},expression:"product.name"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"编码"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.code),callback:function ($$v) {_vm.$set(_vm.product, "code", $$v)},expression:"product.code"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"规格"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.spec),callback:function ($$v) {_vm.$set(_vm.product, "spec", $$v)},expression:"product.spec"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"型号"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.model),callback:function ($$v) {_vm.$set(_vm.product, "model", $$v)},expression:"product.model"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"分类"}},[_c('el-select',{attrs:{"placeholder":"请选择"},model:{value:(_vm.product.cateId),callback:function ($$v) {_vm.$set(_vm.product, "cateId", $$v)},expression:"product.cateId"}},_vm._l((_vm.cateList),function(item){return _c('el-option',{key:item.id,attrs:{"label":item.name,"value":item.id}})}))],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"SN"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.sn),callback:function ($$v) {_vm.$set(_vm.product, "sn", $$v)},expression:"product.sn"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"条形码"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.barcode),callback:function ($$v) {_vm.$set(_vm.product, "barcode", $$v)},expression:"product.barcode"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"市场指导价"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.price),callback:function ($$v) {_vm.$set(_vm.product, "price", $$v)},expression:"product.price"}}),_vm._v("元\n    ")],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"成本价"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.costPrice),callback:function ($$v) {_vm.$set(_vm.product, "costPrice", $$v)},expression:"product.costPrice"}}),_vm._v("元\n    ")],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"计量单位"}},[_c('el-input',{staticClass:"detail-prod-input",model:{value:(_vm.product.unit),callback:function ($$v) {_vm.$set(_vm.product, "unit", $$v)},expression:"product.unit"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"封面图片"}},[_c('el-upload',{staticClass:"avatar-uploader",attrs:{"action":_vm.host+'/upload/uploadFile',"on-success":_vm.handleAvatarSuccess,"before-upload":_vm.beforeAvatarUpload,"show-file-list":false}},[(_vm.product.imgUrl)?_c('img',{staticClass:"avatar",attrs:{"src":_vm.product.imgUrl}}):_vm._e(),_vm._v(" "),(_vm.product.imgUrl)?_c('span',{staticStyle:{"position":"absolute","top":"5%","right":"10%","font-size":"20px"},on:{"click":function($event){$event.stopPropagation();_vm.handlePictureCardPreview(_vm.product)}}},[_c('i',{staticClass:"el-icon-zoom-in"})]):_vm._e(),_vm._v(" "),(!_vm.product.imgUrl)?_c('i',{staticClass:"el-icon-plus avatar-uploader-icon"}):_vm._e()]),_vm._v(" "),_c('el-dialog',{attrs:{"visible":_vm.dialogVisible},on:{"update:visible":function($event){_vm.dialogVisible=$event}}},[_c('img',{attrs:{"width":"100%","src":_vm.dialogImageUrl,"alt":""}})])],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"审核状态"}},[_c('el-radio-group',{model:{value:(_vm.product.status),callback:function ($$v) {_vm.$set(_vm.product, "status", $$v)},expression:"product.status"}},[_c('el-radio',{attrs:{"border":"","label":-1,"value":"-1"}},[_vm._v("待审")]),_vm._v(" "),_c('el-radio',{attrs:{"border":"","label":1,"value":"1"}},[_vm._v("通过")]),_vm._v(" "),_c('el-radio',{attrs:{"border":"","label":2,"value":"2"}},[_vm._v("不通过")]),_vm._v(" "),_c('el-radio',{attrs:{"border":"","label":5,"value":"5"}},[_vm._v("审核中")])],1)],1),_vm._v(" "),_c('el-form-item',{staticClass:"submit-btn"},[_c('el-button',{attrs:{"type":"primary"},on:{"click":_vm.submitForm}},[_vm._v("提交")]),_vm._v(" "),_c('el-button',{on:{"click":_vm.resetForm}},[_vm._v("取消")])],1)],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ var product_designsys = (esExports);
-// CONCATENATED MODULE: ./src/views/fchaob/product/designsys.vue
+/* harmony default export */ var product_detail = (esExports);
+// CONCATENATED MODULE: ./src/views/fchaob/product/detail.vue
 function injectStyle (ssrContext) {
-  __webpack_require__("R6Tk")
+  __webpack_require__("CQ+A")
 }
 var normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -344,30 +247,31 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  designsys,
-  product_designsys,
+  detail,
+  product_detail,
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
 
-/* harmony default export */ var fchaob_product_designsys = __webpack_exports__["default"] = (Component.exports);
+/* harmony default export */ var fchaob_product_detail = __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
 
-/***/ "R6Tk":
+/***/ "q8do":
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+exports = module.exports = __webpack_require__("FZ+f")(false);
+// imports
 
-// load the styles
-var content = __webpack_require__("EkVj");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("rjj0")("df6c730a", content, true);
+
+// module
+exports.push([module.i, "\n#product-detail {\n  width: 100%;\n  margin-top: 30px;\n}\n#product-detail .el-form{\n  width: 90%;\n  margin: 0 auto;\n}\n#product-detail .el-form .el-form-item{\n}\n#product-detail .detail-prod-input{\n  width: 300px;\n}\n.avatar-uploader .el-upload {\n\tborder: 1px dashed #d9d9d9;\n\tborder-radius: 6px;\n\tcursor: pointer;\n\tposition: relative;\n\toverflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n\tborder-color: #409eff;\n}\n.avatar-uploader-icon {\n\tfont-size: 28px;\n\tcolor: #8c939d;\n\twidth: 148px;\n\theight: 148px;\n\tline-height: 148px;\n\ttext-align: center;\n}\n.avatar {\n\twidth: 148px;\n\theight: 148px;\n\tdisplay: block;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 

@@ -14,7 +14,8 @@ import eventBus from './utils/eventBus'
 import authorityCode from './authorityCode'
 // import echarts from 'echarts'
 import BaiduMap from 'vue-baidu-map'
-
+import Print from 'vue-print-nb'//调用浏览器打印插件
+Vue.use(Print);
 // Vue.prototype.$echarts = echarts
 Vue.prototype.authorityCode = authorityCode
 Vue.use(Element, {

@@ -1,4 +1,4 @@
-webpackJsonp([13],{
+webpackJsonp([14],{
 
 /***/ "+4G4":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2730,6 +2730,10 @@ var authorityCode = {
 var vue_baidu_map = __webpack_require__("dAEq");
 var vue_baidu_map_default = /*#__PURE__*/__webpack_require__.n(vue_baidu_map);
 
+// EXTERNAL MODULE: ./node_modules/vue-print-nb/lib/tag-textarea.umd.min.js
+var tag_textarea_umd_min = __webpack_require__("32DV");
+var tag_textarea_umd_min_default = /*#__PURE__*/__webpack_require__.n(tag_textarea_umd_min);
+
 // CONCATENATED MODULE: ./src/main.js
 
 
@@ -2748,7 +2752,8 @@ var vue_baidu_map_default = /*#__PURE__*/__webpack_require__.n(vue_baidu_map);
 
 // import echarts from 'echarts'
 
-
+ //调用浏览器打印插件
+vue_esm["default"].use(tag_textarea_umd_min_default.a);
 // Vue.prototype.$echarts = echarts
 vue_esm["default"].prototype.authorityCode = src_authorityCode;
 vue_esm["default"].use(element_ui_common_default.a, {
@@ -3126,7 +3131,7 @@ var constantRouterMap = [{
   children: [{
     path: '/redirect/:path*',
     component: function component() {
-      return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "v86N"));
+      return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "v86N"));
     }
   }]
 }, {
@@ -3138,7 +3143,7 @@ var constantRouterMap = [{
 }, {
   path: '/authredirect',
   component: function component() {
-    return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "+abo"));
+    return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, "+abo"));
   },
   hidden: true
 }, {
@@ -3174,22 +3179,25 @@ var asyncRouterMap = {
     return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, "1MlY"));
   },
   '/views/fchaob/product/index': function viewsFchaobProductIndex() {
-    return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "jyKM"));
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "jyKM"));
   },
   '/views/fchaob/product/detail': function viewsFchaobProductDetail() {
-    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "YMyt"));
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "YMyt"));
   },
   '/views/fchaob/product/designsys': function viewsFchaobProductDesignsys() {
-    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "O3LO"));
+    return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "O3LO"));
   },
   '/views/fchaob/product/spaces': function viewsFchaobProductSpaces() {
-    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "SZrK"));
+    return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "SZrK"));
   },
   '/views/fchaob/product/productCate': function viewsFchaobProductProductCate() {
     return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "kdRU"));
   },
   '/views/fchaob/product/setTmpDetail': function viewsFchaobProductSetTmpDetail() {
     return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "24uF"));
+  },
+  '/views/fchaob/admin/index': function viewsFchaobAdminIndex() {
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "NHC/"));
   }
 
 };

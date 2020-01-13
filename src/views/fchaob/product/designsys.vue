@@ -71,6 +71,21 @@
             <img width="100%" :src="dialogImageUrl1" alt="">
           </el-dialog>
         </el-form-item>
+
+          <el-form-item label="方案详情" :label-width="formLabelWidth" v-else>
+            <el-upload
+              :action="host+'/upload/uploadFile'"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview2"
+              :on-success="handleFileSuccess"
+              :on-remove="handleRemove"
+              :file-list="fileOriginList">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible1">
+              <img width="100%" :src="dialogImageUrl1" alt="">
+            </el-dialog>
+        </el-form-item>
         <el-form-item label="空间" :label-width="formLabelWidth" v-if="activeIndex == 1">
           <el-checkbox-group v-model="detail.spaces" size="mini">
             <el-checkbox  border v-for="item in spaces" :label="item.id">{{item.name}}</el-checkbox>
